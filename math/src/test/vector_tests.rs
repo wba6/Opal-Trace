@@ -1,7 +1,6 @@
 #[cfg(test)]
 pub mod tests {
     use crate::vector::Vector3D;
-    use super::*;
 
     #[test]
     fn vector_addition_basic() {
