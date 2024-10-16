@@ -1,9 +1,9 @@
 
 #[derive(PartialEq, PartialOrd, Debug)]
 pub struct Vector3D{
-    x : f64,
-    y : f64,
-    z : f64
+    pub(crate) x : f64,
+    pub(crate) y : f64,
+    pub(crate) z : f64
 }
 impl Vector3D {
 
