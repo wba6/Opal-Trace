@@ -76,4 +76,13 @@ impl Vector3D {
         return f64::sqrt( (self.x * self.x) + (self.y * self.y) + (self.z * self.z));
     }
 
+    // Cross product
+    pub fn cross(&self, other: &Vector3D) -> Vector3D {
+        Vector3D {
+            x: self.y * other.z - self.z * other.y,
+            y: self.z * other.x - self.x * other.z,
+            z: self.x * other.y - self.y * other.x,
+        }
+    }
+
 }
