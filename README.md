@@ -1,2 +1,2 @@
 # Opal-Trace
-A ray tracer written in Rust
+A ray tracer written in Rust (work in progress)
