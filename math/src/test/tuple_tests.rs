@@ -1,5 +1,6 @@
 #[cfg(test)]
 pub mod tests {
+    use std::ops::Mul;
     use crate::tuple::Tuple4D;
     #[test]
     fn test_addition_of_two_tuples_owned() {
@@ -87,7 +88,16 @@ pub mod tests {
         let result = -tuple1;
 
         let expected = Tuple4D::new(-5.5, -6.5, -7.5, true);
-        assert_eq!(result, expected, "Tuple4D::test_vector_addition_to_point method failed point + vector should be a point");
+        assert_eq!(result, expected, "Tuple4D::test_negation method failed");
+    }
+
+    #[test]
+    fn test_scalar_multi() {
+        let tuple1 = Tuple4D::new(5.0, 6.0, 7.0, true);
+        let result = 2.0 * tuple1;
+
+        let expected = Tuple4D::new(10.0, 12.0, 14.0, true);
+        assert_eq!(result, expected, "Tuple4D::test_scalar_multi method failed");
     }
 
 

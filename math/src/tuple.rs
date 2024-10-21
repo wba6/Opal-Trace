@@ -1,4 +1,4 @@
-use std::ops::{Add, Sub, Neg};
+use std::ops::{Add, Sub, Neg, Mul};
 
 #[derive(PartialEq, PartialOrd, Debug)]
 pub struct Tuple4D{
@@ -35,6 +35,47 @@ impl Sub for &Tuple4D {
             z: self.z - rhs.z,
             w: self.w - rhs.w
         }
+    }
+}
+
+impl Mul<&f64> for &Tuple4D {
+    type Output = Tuple4D;
+
+    fn mul(self, rhs: &f64) -> Tuple4D {
+        Tuple4D {
+            x: self.x * rhs,
+            y: self.y * rhs,
+            z: self.z * rhs,
+            w: self.w
+        }
+    }
+}
+
+impl Mul<&Tuple4D> for &f64 {
+    type Output = Tuple4D;
+
+    fn mul(self, rhs: &Tuple4D) -> Tuple4D {
+        Tuple4D {
+            x: self * rhs.x,
+            y: self * rhs.y,
+            z: self * rhs.z,
+            w: rhs.w
+        }
+    }
+}
+
+impl Mul<f64> for Tuple4D {
+    type Output = Tuple4D;
+
+    fn mul(self, rhs: f64) -> Tuple4D {
+        &self * &rhs
+    }
+}
+impl Mul<Tuple4D> for f64 {
+    type Output = Tuple4D;
+
+    fn mul(self, rhs: Tuple4D) -> Tuple4D {
+        &self * &rhs
     }
 }
 
@@ -92,6 +133,9 @@ impl Tuple4D {
     pub fn subtract(&self, vec2 : &Tuple4D) -> Tuple4D{
         return self - vec2;
     }
+
+    //scalar multi
+    pub fn scale(&self, scalar : f64) -> Tuple4D {return self * &scalar;}
 
     // Dot Product
     pub fn dot(&self, vec2 : &Tuple4D) -> f64{
