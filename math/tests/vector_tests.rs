@@ -54,20 +54,20 @@ pub mod tests {
     fn vector_magnitude_basic() {
         let v = Vector3D::new(1.0, 1.0, 1.0);
         let expected = f64::sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
-        assert_eq!(v.mag(), expected);
+        assert_eq!(v.magnitude(), expected);
     }
 
     #[test]
     fn vector_magnitude_zero_vector() {
         let v = Vector3D::new(0.0, 0.0, 0.0);
-        assert_eq!(v.mag(), 0.0);
+        assert_eq!(v.magnitude(), 0.0);
     }
 
     #[test]
     fn vector_magnitude_negative_components() {
         let v = Vector3D::new(-3.0, -4.0, 0.0);
         let expected = 5.0; // sqrt(9 + 16 + 0) = 5
-        assert_eq!(v.mag(), expected);
+        assert_eq!(v.magnitude(), expected);
     }
 
     #[test]

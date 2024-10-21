@@ -1,10 +1,46 @@
-use std::ops::{Add, Sub};
+use std::ops::{Add, Mul, Sub};
 
-#[derive(PartialEq, PartialOrd, Debug)]
+#[derive(PartialEq, PartialOrd, Debug, Clone, Copy)]
 pub struct Vector3D {
     pub x: f64,
     pub y: f64,
     pub z: f64,
+}
+
+impl Vector3D {
+    // Constructor
+    pub fn new(x: f64, y: f64, z: f64) -> Self {
+        Self { x, y, z }
+    }
+
+    // Dot Product
+    pub fn add(&self, other: &Vector3D) -> Vector3D {
+        self + other
+    }
+
+    // Dot Product
+    pub fn subtract(&self, other: &Vector3D) -> Vector3D {
+        self - other
+    }
+
+    // Dot Product
+    pub fn dot(&self, other: &Vector3D) -> f64 {
+        (self.x * other.x) + (self.y * other.y) + (self.z * other.z)
+    }
+
+    // Magnitude
+    pub fn magnitude(&self) -> f64 {
+        (self.x * self.x + self.y * self.y + self.z * self.z).sqrt()
+    }
+
+    // Cross Product
+    pub fn cross(&self, other: &Vector3D) -> Vector3D {
+        Vector3D {
+            x: self.y * other.z - self.z * other.y,
+            y: self.z * other.x - self.x * other.z,
+            z: self.x * other.y - self.y * other.x,
+        }
+    }
 }
 
 // Implement Add for references to Vector3D
@@ -33,6 +69,7 @@ impl Sub for &Vector3D {
     }
 }
 
+// Implement Add and Sub for owned Vector3D, delegating to the reference implementations
 impl Add for Vector3D {
     type Output = Vector3D;
 
@@ -49,38 +86,23 @@ impl Sub for Vector3D {
     }
 }
 
-impl Vector3D {
-    // Constructor
-    pub fn new(x: f64, y: f64, z: f64) -> Self {
-        Self { x, y, z }
-    }
+// Implement scalar multiplication for Vector3D
+impl Mul<f64> for &Vector3D {
+    type Output = Vector3D;
 
-    // Vector addition
-    pub fn add(&self, vec2: &Vector3D) -> Vector3D {
-        return self + &vec2;
-    }
-
-    // Vector subtraction
-    pub fn subtract(&self, vec2: &Vector3D) -> Vector3D {
-        return self - vec2;
-    }
-
-    // Dot Product
-    pub fn dot(&self, vec2: &Vector3D) -> f64 {
-        return (self.x * vec2.x) + (self.y * vec2.y) + (self.z * vec2.z);
-    }
-
-    // magnitude
-    pub fn mag(&self) -> f64 {
-        return f64::sqrt((self.x * self.x) + (self.y * self.y) + (self.z * self.z));
-    }
-
-    // Cross product
-    pub fn cross(&self, other: &Vector3D) -> Vector3D {
+    fn mul(self, scalar: f64) -> Vector3D {
         Vector3D {
-            x: self.y * other.z - self.z * other.y,
-            y: self.z * other.x - self.x * other.z,
-            z: self.x * other.y - self.y * other.x,
+            x: self.x * scalar,
+            y: self.y * scalar,
+            z: self.z * scalar,
         }
+    }
+}
+
+impl Mul<f64> for Vector3D {
+    type Output = Vector3D;
+
+    fn mul(self, scalar: f64) -> Vector3D {
+        &self * scalar
     }
 }
