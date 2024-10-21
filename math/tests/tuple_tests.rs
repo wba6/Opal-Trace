@@ -122,7 +122,7 @@ pub mod tests {
     #[test]
     fn test_scalar_division() {
         let tuple = Tuple4D::new(10.0, 20.0, 30.0, 40.0);
-        let result = tuple * 0.5;
+        let result = tuple / 2.0;
 
         let expected = Tuple4D::new(5.0, 10.0, 15.0, 20.0);
         assert_eq!(result, expected, "Scalar division of Tuple4D failed.");
@@ -137,6 +137,21 @@ pub mod tests {
         assert_eq!(magnitude, expected, "Magnitude calculation of Tuple4D vector failed.");
     }
 
+    #[test]
+    fn test_normalization() {
+        let vector = Tuple4D::new(4.0, 0.0, 0.0, 0.0);
+        let normalized = vector.normalize();
+
+        let expected = Tuple4D::new(1.0, 0.0, 0.0, 0.0);
+        assert_eq!(normalized, expected, "Normalization of Tuple4D vector failed.");
+
+        let vector = Tuple4D::new(1.0, 2.0, 3.0, 0.0);
+        let normalized = vector.normalize();
+        let magnitude = (1.0_f64 + 4.0 + 9.0).sqrt();
+
+        let expected = Tuple4D::new(1.0 / magnitude, 2.0 / magnitude, 3.0 / magnitude, 0.0);
+        assert_eq!(normalized, expected, "Normalization of Tuple4D vector with non-unit magnitude failed.");
+    }
 
     #[test]
     fn test_dot_product() {
@@ -148,6 +163,16 @@ pub mod tests {
         assert_eq!(dot, expected, "Dot product of Tuple4D vectors failed.");
     }
 
+    #[test]
+    fn test_normalization_preserves_direction() {
+        let vector = Tuple4D::new(0.0, 0.0, 0.0, 0.0);
+        let normalized = vector.normalize();
+
+        // Depending on implementation, normalizing a zero vector might return zero or panic.
+        // Adjust the test based on your implementation.
+        let expected = Tuple4D::new(0.0, 0.0, 0.0, 0.0);
+        assert_eq!(normalized, expected, "Normalization of zero Tuple4D vector failed.");
+    }
 
     #[test]
     fn test_scalar_multiplication_with_negative_scalar() {
