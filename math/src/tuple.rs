@@ -1,6 +1,6 @@
-use std::ops::{Add, Sub, Neg, Mul};
+use std::ops::{Add, Sub, Neg, Mul, Div};
 
-#[derive(PartialEq, PartialOrd, Debug)]
+#[derive(PartialEq, PartialOrd, Debug, Copy, Clone)]
 pub struct Tuple4D{
     pub(crate) x : f64,
     pub(crate) y : f64,
@@ -33,6 +33,27 @@ impl Sub for &Tuple4D {
             z: self.z - rhs.z,
             w: self.w - rhs.w
         }
+    }
+}
+
+impl Div<&f64> for &Tuple4D {
+    type Output = Tuple4D;
+
+    fn div(self, rhs: &f64) -> Self::Output {
+        Tuple4D {
+            x: self.x / rhs,
+            y: self.y / rhs,
+            z: self.z / rhs,
+            w: self.w / rhs
+        }
+    }
+}
+
+impl Div<f64> for Tuple4D {
+    type Output = Tuple4D;
+
+    fn div(self, rhs: f64) -> Tuple4D {
+        &self / &rhs
     }
 }
 
@@ -76,6 +97,7 @@ impl Mul<Tuple4D> for f64 {
         &self * &rhs
     }
 }
+
 
 // Implement Sub for references to Tuple4D
 impl Neg for &Tuple4D {
@@ -143,6 +165,16 @@ impl Tuple4D {
     // magnitude
     pub fn magnitude(&self) -> f64 {
         return f64::sqrt( (self.x * self.x) + (self.y * self.y) + (self.z * self.z) + (self.w * self.w));
+    }
+
+    // normalize
+    pub fn normalize(&self) -> Tuple4D {
+        if self.is_zero_tuple() { return *self }
+        self / &self.magnitude()
+    }
+
+    fn is_zero_tuple(&self) -> bool {
+        if self.magnitude() == 0.0 { true } else { false }
     }
 
     pub fn is_point(&self) -> bool {
