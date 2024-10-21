@@ -13,13 +13,11 @@ impl Add for &Tuple4D {
     type Output = Tuple4D;
 
     fn add(self, rhs: &Tuple4D) -> Tuple4D {
-        let w_component :f64 = if rhs.is_point() && self.is_point() {1.0} else { self.w + rhs.w };
-
         return Tuple4D {
             x: self.x + rhs.x,
             y: self.y + rhs.y,
             z: self.z + rhs.z,
-            w: w_component
+            w: self.w + rhs.w
         }
     }
 }
@@ -46,7 +44,7 @@ impl Mul<&f64> for &Tuple4D {
             x: self.x * rhs,
             y: self.y * rhs,
             z: self.z * rhs,
-            w: self.w
+            w: self.w * rhs
         }
     }
 }
@@ -59,7 +57,7 @@ impl Mul<&Tuple4D> for &f64 {
             x: self * rhs.x,
             y: self * rhs.y,
             z: self * rhs.z,
-            w: rhs.w
+            w: self * rhs.w
         }
     }
 }
@@ -88,7 +86,7 @@ impl Neg for &Tuple4D {
             x: -self.x,
             y: -self.y,
             z: -self.z,
-            w: self.w
+            w: -self.w
         }
     }
 }
@@ -120,8 +118,8 @@ impl Neg for Tuple4D {
 impl Tuple4D {
 
     // Constructor
-    pub fn new(x: f64, y: f64, z: f64, is_point : bool) -> Self {
-        Self { x, y, z, w : if is_point {1.0} else {0.0} }
+    pub fn new(x: f64, y: f64, z: f64, w :f64) -> Self {
+        Self { x, y, z, w}
     }
 
     // Vector addition
