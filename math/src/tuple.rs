@@ -141,7 +141,7 @@ impl Tuple4D {
     }
 
     // magnitude
-    pub fn mag(&self) -> f64 {
+    pub fn magnitude(&self) -> f64 {
         return f64::sqrt( (self.x * self.x) + (self.y * self.y) + (self.z * self.z) + (self.w * self.w));
     }
 
