@@ -1,3 +1,2 @@
-pub mod vector;
 pub mod tuple;
-
+pub mod vector;

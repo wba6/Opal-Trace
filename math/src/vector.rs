@@ -1,10 +1,10 @@
 use std::ops::{Add, Sub};
 
 #[derive(PartialEq, PartialOrd, Debug)]
-pub struct Vector3D{
-    pub x : f64,
-    pub y : f64,
-    pub z : f64
+pub struct Vector3D {
+    pub x: f64,
+    pub y: f64,
+    pub z: f64,
 }
 
 // Implement Add for references to Vector3D
@@ -50,30 +50,29 @@ impl Sub for Vector3D {
 }
 
 impl Vector3D {
-
     // Constructor
     pub fn new(x: f64, y: f64, z: f64) -> Self {
         Self { x, y, z }
     }
 
     // Vector addition
-    pub fn add(&self, vec2 : &Vector3D) -> Vector3D{
+    pub fn add(&self, vec2: &Vector3D) -> Vector3D {
         return self + &vec2;
     }
 
     // Vector subtraction
-    pub fn subtract(&self, vec2 : &Vector3D) -> Vector3D{
+    pub fn subtract(&self, vec2: &Vector3D) -> Vector3D {
         return self - vec2;
     }
 
     // Dot Product
-    pub fn dot(&self, vec2 : &Vector3D) -> f64{
+    pub fn dot(&self, vec2: &Vector3D) -> f64 {
         return (self.x * vec2.x) + (self.y * vec2.y) + (self.z * vec2.z);
     }
 
     // magnitude
     pub fn mag(&self) -> f64 {
-        return f64::sqrt( (self.x * self.x) + (self.y * self.y) + (self.z * self.z));
+        return f64::sqrt((self.x * self.x) + (self.y * self.y) + (self.z * self.z));
     }
 
     // Cross product
@@ -84,5 +83,4 @@ impl Vector3D {
             z: self.x * other.y - self.y * other.x,
         }
     }
-
 }

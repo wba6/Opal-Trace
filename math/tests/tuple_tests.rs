@@ -8,7 +8,10 @@ pub mod tests {
         let result = tuple1 + tuple2;
 
         let expected = Tuple4D::new(6.0, 8.0, 10.0, 0.0);
-        assert_eq!(result, expected, "Addition of two owned Tuple4D instances failed.");
+        assert_eq!(
+            result, expected,
+            "Addition of two owned Tuple4D instances failed."
+        );
     }
 
     #[test]
@@ -18,7 +21,10 @@ pub mod tests {
         let result = &tuple1 + &tuple2;
 
         let expected = Tuple4D::new(6.0, 8.0, 10.0, 0.0);
-        assert_eq!(result, expected, "Addition of two borrowed Tuple4D references failed.");
+        assert_eq!(
+            result, expected,
+            "Addition of two borrowed Tuple4D references failed."
+        );
     }
 
     #[test]
@@ -38,7 +44,10 @@ pub mod tests {
         let result = tuple1 - tuple2;
 
         let expected = Tuple4D::new(9.0, 18.0, 27.0, 0.0);
-        assert_eq!(result, expected, "Subtraction of two owned Tuple4D instances failed.");
+        assert_eq!(
+            result, expected,
+            "Subtraction of two owned Tuple4D instances failed."
+        );
     }
 
     #[test]
@@ -48,7 +57,10 @@ pub mod tests {
         let result = &tuple1 - &tuple2;
 
         let expected = Tuple4D::new(9.0, 18.0, 27.0, 0.0);
-        assert_eq!(result, expected, "Subtraction of two borrowed Tuple4D references failed.");
+        assert_eq!(
+            result, expected,
+            "Subtraction of two borrowed Tuple4D references failed."
+        );
     }
 
     #[test]
@@ -68,7 +80,10 @@ pub mod tests {
         let result = tuple1.subtract(&tuple2);
 
         let expected = Tuple4D::new(4.0, 4.0, 4.0, 0.0);
-        assert_eq!(result, expected, "Tuple4D::test_point_to_vector method failed point - point should be a vector.");
+        assert_eq!(
+            result, expected,
+            "Tuple4D::test_point_to_vector method failed point - point should be a vector."
+        );
     }
 
     #[test]
@@ -78,7 +93,10 @@ pub mod tests {
         let result = tuple1.add(&tuple2);
 
         let expected = Tuple4D::new(7.0, 9.0, 11.0, 1.0);
-        assert_eq!(result, expected, "Tuple4D::test_vector_addition_to_point method failed point + vector should be a point");
+        assert_eq!(
+            result, expected,
+            "Tuple4D::test_vector_addition_to_point method failed point + vector should be a point"
+        );
     }
 
     #[test]
@@ -107,8 +125,14 @@ pub mod tests {
         let tuple2 = Tuple4D::new(1.0, 2.0, 3.0, 4.0);
         let tuple3 = Tuple4D::new(4.0, 3.0, 2.0, 1.0);
 
-        assert_eq!(tuple1, tuple2, "Tuples with identical components should be equal.");
-        assert_ne!(tuple1, tuple3, "Tuples with different components should not be equal.");
+        assert_eq!(
+            tuple1, tuple2,
+            "Tuples with identical components should be equal."
+        );
+        assert_ne!(
+            tuple1, tuple3,
+            "Tuples with different components should not be equal."
+        );
     }
 
     #[test]
@@ -116,7 +140,10 @@ pub mod tests {
         let zero = Tuple4D::new(0.0, 0.0, 0.0, 0.0);
         let tuple = Tuple4D::new(0.0, 0.0, 0.0, 0.0);
 
-        assert_eq!(zero, tuple, "Zero tuple should be equal to another zero tuple.");
+        assert_eq!(
+            zero, tuple,
+            "Zero tuple should be equal to another zero tuple."
+        );
     }
 
     #[test]
@@ -134,7 +161,10 @@ pub mod tests {
         let magnitude = vector.magnitude();
 
         let expected = (1.0_f64 + 4.0 + 9.0).sqrt();
-        assert_eq!(magnitude, expected, "Magnitude calculation of Tuple4D vector failed.");
+        assert_eq!(
+            magnitude, expected,
+            "Magnitude calculation of Tuple4D vector failed."
+        );
     }
 
     #[test]
@@ -143,14 +173,20 @@ pub mod tests {
         let normalized = vector.normalize();
 
         let expected = Tuple4D::new(1.0, 0.0, 0.0, 0.0);
-        assert_eq!(normalized, expected, "Normalization of Tuple4D vector failed.");
+        assert_eq!(
+            normalized, expected,
+            "Normalization of Tuple4D vector failed."
+        );
 
         let vector = Tuple4D::new(1.0, 2.0, 3.0, 0.0);
         let normalized = vector.normalize();
         let magnitude = (1.0_f64 + 4.0 + 9.0).sqrt();
 
         let expected = Tuple4D::new(1.0 / magnitude, 2.0 / magnitude, 3.0 / magnitude, 0.0);
-        assert_eq!(normalized, expected, "Normalization of Tuple4D vector with non-unit magnitude failed.");
+        assert_eq!(
+            normalized, expected,
+            "Normalization of Tuple4D vector with non-unit magnitude failed."
+        );
     }
 
     #[test]
@@ -171,7 +207,10 @@ pub mod tests {
         // Depending on implementation, normalizing a zero vector might return zero or panic.
         // Adjust the test based on your implementation.
         let expected = Tuple4D::new(0.0, 0.0, 0.0, 0.0);
-        assert_eq!(normalized, expected, "Normalization of zero Tuple4D vector failed.");
+        assert_eq!(
+            normalized, expected,
+            "Normalization of zero Tuple4D vector failed."
+        );
     }
 
     #[test]
@@ -180,6 +219,9 @@ pub mod tests {
         let result = -3.0 * tuple;
 
         let expected = Tuple4D::new(-3.0, 6.0, -9.0, 12.0);
-        assert_eq!(result, expected, "Scalar multiplication with negative scalar failed.");
+        assert_eq!(
+            result, expected,
+            "Scalar multiplication with negative scalar failed."
+        );
     }
 }
