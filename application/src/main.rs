@@ -14,12 +14,11 @@ fn main() {
     ];
 
     loop {
-        projectile = tick(&env, &projectile);
-
-        println!("Position {:.2?}", projectile[0]);
         if projectile[0].y <= 0.0 {
             break;
         }
+        projectile = tick(&env, &projectile);
+        println!("Position {:.2?}", projectile[0]);
     }
 }
 
