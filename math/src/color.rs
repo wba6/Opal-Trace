@@ -100,7 +100,9 @@ impl Mul<f64> for Color {
     type Output = Color;
 
     fn mul(self, scalar: f64) -> Color {
-        Color {vector : &self.vector * scalar}
+        Color {
+            vector: &self.vector * scalar,
+        }
     }
 }
 
@@ -131,7 +133,7 @@ impl Mul for &Color {
 
     fn mul(self, rhs: &Color) -> Color {
         Color {
-            vector: self.vector.multi_component_wise(&rhs.vector)
+            vector: self.vector.multi_component_wise(&rhs.vector),
         }
     }
 }
@@ -141,7 +143,7 @@ impl Mul for Color {
 
     fn mul(self, rhs: Color) -> Color {
         Color {
-            vector: self.vector.multi_component_wise(&rhs.vector)
+            vector: self.vector.multi_component_wise(&rhs.vector),
         }
     }
 }

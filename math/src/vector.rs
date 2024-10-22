@@ -116,5 +116,3 @@ impl Mul<f64> for Vector3D {
         &self * scalar
     }
 }
-
-
