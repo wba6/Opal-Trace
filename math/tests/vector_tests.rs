@@ -30,7 +30,7 @@ pub mod tests {
     fn vector_subtraction_basic() {
         let v1 = Vector3D::new(3.0, 2.0, 2.0);
         let v2 = Vector3D::new(2.0, 2.0, 2.0);
-        let result = v1.subtract(&v2);
+        let result = v1.sub(&v2);
         assert_eq!(result, Vector3D::new(1.0, 0.0, 0.0));
     }
 
@@ -38,7 +38,7 @@ pub mod tests {
     fn vector_subtraction_resulting_in_negatives() {
         let v1 = Vector3D::new(1.0, 1.0, 1.0);
         let v2 = Vector3D::new(2.0, 3.0, 4.0);
-        let result = v1.subtract(&v2);
+        let result = v1.sub(&v2);
         assert_eq!(result, Vector3D::new(-1.0, -2.0, -3.0));
     }
 
@@ -46,7 +46,7 @@ pub mod tests {
     fn vector_subtraction_with_zero() {
         let v1 = Vector3D::new(5.0, -3.0, 2.0);
         let v2 = Vector3D::new(0.0, 0.0, 0.0);
-        let result = v1.subtract(&v2);
+        let result = v1.sub(&v2);
         assert_eq!(result, v1);
     }
 
@@ -172,6 +172,15 @@ pub mod tests {
         let v2 = Vector3D::new(4.0, 9.0, 2.0);
         let result = v1.cross(&v2);
         let expected = Vector3D::new(-15.0, -2.0, 39.0);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn vector_component_wise_test() {
+        let v1 = Vector3D::new(3.0, -3.0, 1.0);
+        let v2 = Vector3D::new(4.0, 9.0, 2.0);
+        let result = v1.multi_component_wise(&v2);
+        let expected = Vector3D::new(12.0, -27.0, 2.0);
         assert_eq!(result, expected);
     }
 }

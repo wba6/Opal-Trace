@@ -13,14 +13,16 @@ impl Vector3D {
         Self { x, y, z }
     }
 
-    // Dot Product
-    pub fn add(&self, other: &Vector3D) -> Vector3D {
+    pub fn add(&self, other: &Self) -> Self {
         self + other
     }
 
-    // Dot Product
-    pub fn subtract(&self, other: &Vector3D) -> Vector3D {
+    pub fn sub(&self, other: &Self) -> Self {
         self - other
+    }
+
+    pub fn scale(&self, scalar: f64) -> Self {
+        self * scalar
     }
 
     // Dot Product
@@ -39,6 +41,14 @@ impl Vector3D {
             x: self.y * other.z - self.z * other.y,
             y: self.z * other.x - self.x * other.z,
             z: self.x * other.y - self.y * other.x,
+        }
+    }
+
+    pub fn multi_component_wise(&self, rhs: &Vector3D) -> Vector3D {
+        Vector3D {
+            x: self.x * rhs.x,
+            y: self.y * rhs.y,
+            z: self.z * rhs.z,
         }
     }
 }
@@ -106,3 +116,5 @@ impl Mul<f64> for Vector3D {
         &self * scalar
     }
 }
+
+

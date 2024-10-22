@@ -29,7 +29,21 @@ impl Color {
         self.vector.z
     }
 
-    // Additional color-specific methods can be added here
+    pub fn add(&self, other: &Self) -> Color {
+        self + other
+    }
+
+    pub fn sub(&self, other: &Self) -> Color {
+        self - other
+    }
+
+    pub fn multi(&self, other: &Self) -> Color {
+        self * other
+    }
+
+    pub fn scale(&self, scalar: f64) -> Color {
+        self * scalar
+    }
 }
 
 // Implement Add for references to Color
@@ -86,41 +100,48 @@ impl Mul<f64> for Color {
     type Output = Color;
 
     fn mul(self, scalar: f64) -> Color {
-        &self * scalar
+        Color {vector : &self.vector * scalar}
     }
 }
 
-// === Traits for Shared Behavior (Optional) ===
-pub trait VectorOperations {
-    fn add(&self, other: &Self) -> Self;
-    fn sub(&self, other: &Self) -> Self;
-    fn scale(&self, scalar: f64) -> Self;
-}
+// Implement scalar multiplication for Color
+impl Mul<&Color> for f64 {
+    type Output = Color;
 
-impl VectorOperations for Vector3D {
-    fn add(&self, other: &Self) -> Self {
-        self + other
-    }
-
-    fn sub(&self, other: &Self) -> Self {
-        self - other
-    }
-
-    fn scale(&self, scalar: f64) -> Self {
-        self * scalar
+    fn mul(self, rhs: &Color) -> Color {
+        Color {
+            vector: &rhs.vector * self,
+        }
     }
 }
 
-impl VectorOperations for Color {
-    fn add(&self, other: &Self) -> Self {
-        self + other
-    }
+impl Mul<Color> for f64 {
+    type Output = Color;
 
-    fn sub(&self, other: &Self) -> Self {
-        self - other
+    fn mul(self, rhs: Color) -> Color {
+        Color {
+            vector: rhs.vector * self,
+        }
     }
+}
 
-    fn scale(&self, scalar: f64) -> Self {
-        self * scalar
+// Implement multiplication for Color
+impl Mul for &Color {
+    type Output = Color;
+
+    fn mul(self, rhs: &Color) -> Color {
+        Color {
+            vector: self.vector.multi_component_wise(&rhs.vector)
+        }
+    }
+}
+
+impl Mul for Color {
+    type Output = Color;
+
+    fn mul(self, rhs: Color) -> Color {
+        Color {
+            vector: self.vector.multi_component_wise(&rhs.vector)
+        }
     }
 }
