@@ -1,29 +1,43 @@
-use math::tuple::Tuple4D;
+use math::point::Point3D;
+use math::vector::Vector3D;
+
+struct Projectile {
+    location: Point3D,
+    direction: Vector3D,
+}
+
+struct Env {
+    gravity: Vector3D,
+    wind: Vector3D,
+}
+
 fn main() {
-    println!("Hello, world!");
     //position and velocity
-    let mut projectile: [Tuple4D; 2] = [
-        Tuple4D::new(0.0, 1.0, 0.0, 1.0),
-        Tuple4D::new(1.0, 1.0, 0.0, 0.0),
-    ];
+    let mut projectile: Projectile = Projectile {
+        location: Point3D::new(0.0, 1.0, 0.0),
+        direction: Vector3D::new(1.0, 1.0, 0.0),
+    };
 
     //gravity and wind
-    let env: [Tuple4D; 2] = [
-        Tuple4D::new(0.0, -0.1, 0.0, 0.0),
-        Tuple4D::new(-0.01, 0.0, 0.0, 0.0),
-    ];
+    let env: Env = Env {
+        gravity: Vector3D::new(0.0, -0.1, 0.0),
+        wind: Vector3D::new(-0.01, 0.0, 0.0),
+    };
 
     loop {
-        if projectile[0].y <= 0.0 {
+        if projectile.location.y() <= 0.0 {
             break;
         }
         projectile = tick(&env, &projectile);
-        println!("Position {:.2?}", projectile[0]);
+        println!("Position {:.2?}", projectile.location);
     }
 }
 
-fn tick(env: &[Tuple4D; 2], proj: &[Tuple4D; 2]) -> [Tuple4D; 2] {
-    let position = proj[0] + proj[1];
-    let velocity = proj[1] + env[0] + env[1];
-    return [position, velocity];
+fn tick(env: &Env, proj: &Projectile) -> Projectile {
+    let position = &proj.location + &proj.direction;
+    let velocity = proj.direction + env.gravity + env.wind;
+    return Projectile {
+        location: position,
+        direction: velocity,
+    };
 }

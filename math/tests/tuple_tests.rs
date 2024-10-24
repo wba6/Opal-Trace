@@ -289,13 +289,6 @@ pub mod tests {
         let v2 = Tuple4D::new(5.0, 6.0, 7.0, 0.0);
         let cross = v1.cross(&v2);
 
-        let expected = Tuple4D::new(
-            3.0 * 7.0 - 4.0 * 6.0, // (y1*z2 - z1*y2) = 21 - 24 = -3
-            4.0 * 5.0 - 2.0 * 7.0, // (z1*x2 - x1*z2) = 20 - 14 = 6
-            2.0 * 6.0 - 3.0 * 5.0, // (x1*y2 - y1*x2) = 12 - 15 = -3
-            0.0,
-        );
-
         let expected = Tuple4D::new(-3.0, 6.0, -3.0, 0.0);
         assert_eq!(
             cross, expected,

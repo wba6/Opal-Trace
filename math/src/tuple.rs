@@ -5,7 +5,7 @@ pub struct Tuple4D {
     pub x: f64,
     pub y: f64,
     pub z: f64,
-    w: f64, //this value is used to determine if this is a vector, 0.0 means vector, anything else point
+    pub(crate) w: f64, //this value is used to determine if this is a vector, 0.0 means vector, anything else point
 }
 
 // Implement Add for references to Tuple4D

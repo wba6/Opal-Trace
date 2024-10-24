@@ -53,7 +53,7 @@ pub mod tests {
     #[test]
     fn vector_magnitude_basic() {
         let v = Vector3D::new(1.0, 1.0, 1.0);
-        let expected = f64::sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+        let expected = f64::sqrt(v.x() * v.x() + v.y() * v.y() + v.z() * v.z());
         assert_eq!(v.magnitude(), expected);
     }
 

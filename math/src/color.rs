@@ -16,17 +16,17 @@ impl Color {
 
     /// Accessor for the red component
     pub fn r(&self) -> f64 {
-        self.vector.x
+        self.vector.x()
     }
 
     /// Accessor for the green component
     pub fn g(&self) -> f64 {
-        self.vector.y
+        self.vector.y()
     }
 
     /// Accessor for the blue component
     pub fn b(&self) -> f64 {
-        self.vector.z
+        self.vector.z()
     }
 
     pub fn add(&self, other: &Self) -> Color {
