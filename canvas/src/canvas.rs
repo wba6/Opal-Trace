@@ -1,38 +1,67 @@
+use std::fs;
+use std::fs::File;
+use std::io::Write;
 use math::color::Color;
 
+#[derive(PartialEq, PartialOrd, Debug, Clone)]
 pub struct Canvas {
-    height: i32,
-    width: i32
+    pub(crate) width: u32,
+    pub(crate) height: u32,
+    pub(crate) pixels: Vec<Vec<Color>>
 }
 
 impl Canvas {
 
-    pub fn new(height: i32, width: i32) -> Self {
-        Self { height, width }
-    }
-    
-    pub fn write_pixel(&self, x: i32, y: i32, color: Color) {
-        panic!("Function not implemented");
-    }
-    pub fn get_pixel(&self, x: i32, y: i32) -> Color {
-        panic!("Function not implemented");
-        Color::new(0.0, 0.0, 0.0);
+    pub fn new(width: u32, height: u32) -> Self {
+        // Create a single row initialized with black pixels
+        let row = vec![Color::new(0.0, 0.0, 0.0); width as usize];
+
+        // Create all rows by cloning the single row
+        let pixels = vec![row; height as usize];
+
+        Self {
+            width,
+            height,
+            pixels,
+        }
     }
 
-    pub fn height(&self) -> i32 {
+    pub fn write_pixel(&mut self, x: u32, y: u32, color: &Color) {
+        if x > self.width || self.height < y { panic!("Out of bounds error, x:{} and y:{} must be within the canvas({},{})", x,y, self.width, self.height);  }
+        self.pixels[y as usize][x as usize] = color.clone();
+    }
+    pub fn get_pixel(&self, x: u32, y: u32) -> Color {
+        if x > self.width || self.height < y { panic!("Out of bounds error, x:{} and y:{} must be within the canvas({},{})", x,y, self.width, self.height);  }
+        self.pixels[y as usize][x as usize].clone()
+    }
+
+    fn create_ppm_file(&self) -> File {
+        let mut file = fs::File::create("./image.ppm").unwrap();
+        return file
+    }
+    pub fn write_to_ppm_file(&self, file_name: String) {
+        let mut file = self.create_ppm_file();
+        let ppm = self.to_ppm();
+        file.write_all(ppm.as_ref()).expect("Failed to write to file");
+    }
+
+    pub fn to_ppm(&self) -> String {
+        let mut ppm = String::from(format!("P3\n{} {}\n255\n", self.width, self.height));
+
+        for row in self.pixels.iter() {
+            for column in row {
+                ppm.push_str(&format!("{} {} {}\n", column.r(), column.g(), column.b()));
+            }
+        }
+        return ppm;
+    }
+
+    pub fn height(&self) -> u32 {
         self.height
     }
 
-    pub fn width(&self) -> i32 {
+    pub fn width(&self) -> u32 {
         self.width
-    }
-
-    pub fn set_height(&mut self, height: i32) {
-        self.height = height;
-    }
-
-    pub fn set_width(&mut self, width: i32) {
-        self.width = width;
     }
 
 }

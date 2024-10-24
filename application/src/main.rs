@@ -1,3 +1,5 @@
+use canvas::canvas::Canvas;
+use math::color::Color;
 use math::point::Point3D;
 use math::vector::Vector3D;
 
@@ -12,6 +14,10 @@ struct Env {
 }
 
 fn main() {
+
+    let mut canvas = Canvas::new(10, 10);
+    canvas.write_pixel(1, 1, &Color::new(255.0, 255.0, 255.0));
+    canvas.write_to_ppm_file("test.ppm".parse().unwrap());
     //position and velocity
     let mut projectile: Projectile = Projectile {
         location: Point3D::new(0.0, 1.0, 0.0),
