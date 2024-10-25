@@ -48,8 +48,8 @@ impl Canvas {
     pub fn to_ppm(&self) -> String {
         let mut ppm = String::from(format!("P3\n{} {}\n255\n", self.width, self.height));
 
-        for row in self.pixels.iter() {
-            for column in row {
+        for row in self.pixels.iter().rev() {
+            for column in row.iter() {
                 ppm.push_str(&format!("{} {} {}\n", column.r(), column.g(), column.b()));
             }
         }
