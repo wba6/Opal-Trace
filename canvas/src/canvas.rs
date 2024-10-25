@@ -14,10 +14,10 @@ impl Canvas {
 
     pub fn new(width: u32, height: u32) -> Self {
         // Create a single row initialized with black pixels
-        let row = vec![Color::new(0.0, 0.0, 0.0); width as usize];
+        let row = vec![Color::new(0.0, 0.0, 0.0); width as usize + 1];
 
         // Create all rows by cloning the single row
-        let pixels = vec![row; height as usize];
+        let pixels = vec![row; height as usize + 1];
 
         Self {
             width,
@@ -35,12 +35,12 @@ impl Canvas {
         self.pixels[y as usize][x as usize].clone()
     }
 
-    fn create_ppm_file(&self) -> File {
-        let mut file = fs::File::create("./image.ppm").unwrap();
+    fn create_ppm_file(&self, file_name: String) -> File {
+        let mut file = fs::File::create(file_name).unwrap();
         return file
     }
     pub fn write_to_ppm_file(&self, file_name: String) {
-        let mut file = self.create_ppm_file();
+        let mut file = self.create_ppm_file(file_name);
         let ppm = self.to_ppm();
         file.write_all(ppm.as_ref()).expect("Failed to write to file");
     }
