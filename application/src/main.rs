@@ -15,13 +15,12 @@ struct Env {
 
 fn main() {
 
-    let mut canvas = Canvas::new(10, 10);
-    canvas.write_pixel(1, 1, &Color::new(255.0, 255.0, 255.0));
-    canvas.write_to_ppm_file("test.ppm".parse().unwrap());
+    let mut canvas = Canvas::new(1920, 1080);
+
     //position and velocity
     let mut projectile: Projectile = Projectile {
         location: Point3D::new(0.0, 1.0, 0.0),
-        direction: Vector3D::new(1.0, 1.0, 0.0),
+        direction: Vector3D::new(10.0, 10.0, 0.0),
     };
 
     //gravity and wind
@@ -35,8 +34,11 @@ fn main() {
             break;
         }
         projectile = tick(&env, &projectile);
+        canvas.write_pixel(projectile.location.x() as u32, projectile.location.y() as u32, &Color::new(255.0, 70.0, 70.0));
         println!("Position {:.2?}", projectile.location);
     }
+
+    canvas.write_to_ppm_file("test.ppm".parse().unwrap());
 }
 
 fn tick(env: &Env, proj: &Projectile) -> Projectile {
