@@ -4,9 +4,10 @@ mod tests {
     use canvas::canvas::Canvas;
     use math::color::Color;
 
+
     #[test]
     fn canvas_getters() {
-        let mut canvas1 = Canvas::new(65,89);
+        let canvas1 = Canvas::new(65,89);
 
         let result = Canvas::new(canvas1.width(),canvas1.height());
 
@@ -22,4 +23,6 @@ mod tests {
         assert_eq!(expected, canvas1.get_pixel(34,89));
         assert_eq!(Color::new(0.0, 0.0, 0.0), canvas1.get_pixel(33,89));
     }
+
+    //@TODO need tests to check functionality of ppm functions
 }
