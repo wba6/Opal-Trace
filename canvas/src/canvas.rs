@@ -5,38 +5,38 @@ use math::color::Color;
 
 #[derive(PartialEq, PartialOrd, Debug, Clone)]
 pub struct Canvas {
-    pub(crate) width: u32,
-    pub(crate) height: u32,
+    pub(crate) width: usize,
+    pub(crate) height: usize,
     pub(crate) pixels: Vec<Vec<Color>>
 }
 
 impl Canvas {
 
-    pub fn new(width: u32, height: u32) -> Self {
+    pub fn new(canvas_width: usize, canvas_height: usize) -> Self {
         // Create a single row initialized with black pixels
-        let row = vec![Color::new(0.0, 0.0, 0.0); width as usize + 1];
+        let row = vec![Color::new(0.0, 0.0, 0.0); canvas_width];
 
         // Create all rows by cloning the single row
-        let pixels = vec![row; height as usize + 1];
+        let pixels = vec![row; canvas_height];
 
         Self {
-            width,
-            height,
+            width: canvas_width,
+            height: canvas_height,
             pixels,
         }
     }
 
-    pub fn write_pixel(&mut self, x: u32, y: u32, color: &Color) {
-        if x > self.width || self.height < y { panic!("Out of bounds error, x:{} and y:{} must be within the canvas({},{})", x,y, self.width, self.height);  }
-        self.pixels[y as usize][x as usize] = color.clone();
+    pub fn write_pixel(&mut self, x: usize, y: usize, color: &Color) {
+        if x >= self.width || self.height <= y { panic!("Out of bounds error, x:{} and y:{} must be within the canvas({},{})", x,y, self.width, self.height);  }
+        self.pixels[y][x] = color.clone();
     }
-    pub fn get_pixel(&self, x: u32, y: u32) -> Color {
-        if x > self.width || self.height < y { panic!("Out of bounds error, x:{} and y:{} must be within the canvas({},{})", x,y, self.width, self.height);  }
-        self.pixels[y as usize][x as usize].clone()
+    pub fn get_pixel(&self, x: usize, y: usize) -> Color {
+        if x >= self.width || self.height <= y { panic!("Out of bounds error, x:{} and y:{} must be within the canvas({},{})", x,y, self.width, self.height);  }
+        self.pixels[y][x].clone()
     }
 
     fn create_ppm_file(&self, file_name: String) -> File {
-        let mut file = fs::File::create(file_name).unwrap();
+        let file = fs::File::create(file_name).unwrap();
         return file
     }
     pub fn write_to_ppm_file(&self, file_name: String) {
@@ -56,11 +56,11 @@ impl Canvas {
         return ppm;
     }
 
-    pub fn height(&self) -> u32 {
+    pub fn height(&self) -> usize {
         self.height
     }
 
-    pub fn width(&self) -> u32 {
+    pub fn width(&self) -> usize {
         self.width
     }
 

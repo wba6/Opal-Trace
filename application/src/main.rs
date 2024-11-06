@@ -34,7 +34,7 @@ fn main() {
             break;
         }
         projectile = tick(&env, &projectile);
-        canvas.write_pixel(projectile.location.x() as u32, projectile.location.y() as u32, &Color::new(255.0, 70.0, 70.0));
+        canvas.write_pixel(projectile.location.x() as usize, projectile.location.y() as usize, &Color::new(255.0, 70.0, 70.0));
         println!("Position {:.2?}", projectile.location);
     }
 
