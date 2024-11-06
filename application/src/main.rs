@@ -15,12 +15,12 @@ struct Env {
 
 fn main() {
 
-    let mut canvas = Canvas::new(1920, 1080);
+    let mut canvas = Canvas::new(900, 550);
 
     //position and velocity
     let mut projectile: Projectile = Projectile {
         location: Point3D::new(0.0, 1.0, 0.0),
-        direction: Vector3D::new(10.0, 10.0, 0.0),
+        direction: (Vector3D::new(1.0, 1.8, 0.0).normalize() * 11.25),
     };
 
     //gravity and wind

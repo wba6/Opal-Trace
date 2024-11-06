@@ -70,7 +70,12 @@ impl Vector3D {
             },
         }
     }
+
+    pub fn normalize(&self) -> Vector3D{
+        Vector3D {tuple: self.tuple.normalize()}
+    }
 }
+
 
 // Implement Add for references to Vector3D
 impl Add for &Vector3D {
