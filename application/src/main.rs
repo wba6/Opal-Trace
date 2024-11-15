@@ -14,7 +14,6 @@ struct Env {
 }
 
 fn main() {
-
     let mut canvas = Canvas::new(900, 550);
 
     //position and velocity
@@ -34,7 +33,11 @@ fn main() {
             break;
         }
         projectile = tick(&env, &projectile);
-        canvas.write_pixel(projectile.location.x() as usize, projectile.location.y() as usize, &Color::new(255.0, 70.0, 70.0));
+        canvas.write_pixel(
+            projectile.location.x() as usize,
+            projectile.location.y() as usize,
+            &Color::new(255.0, 70.0, 70.0),
+        );
         println!("Position {:.2?}", projectile.location);
     }
 
