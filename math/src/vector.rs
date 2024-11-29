@@ -59,7 +59,8 @@ impl Vector3D {
             },
         }
     }
-
+    
+    //component wise multiplication 
     pub fn multi_component_wise(&self, rhs: &Vector3D) -> Vector3D {
         Vector3D {
             tuple: Tuple4D {
